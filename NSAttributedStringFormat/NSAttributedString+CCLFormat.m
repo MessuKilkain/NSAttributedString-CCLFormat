@@ -84,9 +84,24 @@ NSArray *CCLFormatStringParser(NSString *format, NSUInteger *maxPosition) {
 
 + (instancetype)attributedStringWithFormat:(NSString *)format, ... {
     va_list args;
-    va_start(args, format);
-    NSAttributedString *result = [[self alloc] initWithFormat:format arguments:args];
-    va_end(args);
+    BOOL hasArgs = NO;
+    {
+        va_start(args, format);
+        NSString *arg = va_arg(args, NSString*);
+        hasArgs = nil!=arg;
+        va_end(args);
+    }
+    NSAttributedString *result = nil;
+    if( hasArgs )
+    {
+        va_start(args, format);
+        result = [[self alloc] initWithFormat:format arguments:args];
+        va_end(args);
+    }
+    else
+    {
+        result = [[NSAttributedString alloc] initWithString:format];
+    }
 
     return result;
 }

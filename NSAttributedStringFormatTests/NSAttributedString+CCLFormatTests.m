@@ -193,6 +193,12 @@
     XCTAssertEqualObjects(formattedAttributedString, attributedString);
 }
 
+- (void)testNothingElseThanNormalStringAsFormat {
+    NSMutableAttributedString *formattedAttributedString = [NSMutableAttributedString attributedStringWithFormat:@"test test"];
+    NSMutableAttributedString *testText = [[NSMutableAttributedString alloc] initWithString:@"test test"];
+    XCTAssertEqualObjects(formattedAttributedString, testText);
+}
+
 - (void)testAttributedArgumentWithComplexAttributesKeepsAttributes {
     NSDictionary *boldBlueAttrs = @{ NSFontAttributeName: [NSFont boldSystemFontOfSize:16.0f],
                                      NSForegroundColorAttributeName: [NSColor blueColor]};
